@@ -22,10 +22,12 @@ dependencies {
   annotationProcessor 'org.projectlombok:lombok:1.18.12'
   
   implementation 'org.apache.commons:commons-lang3:3.9'
+  implementation 'io.dropwizard:dropwizard-core:2.0.12'
+  
 }
 
 jar {
-  manifest {  attributes 'Main-Class': 'playground.Application'  }
+  manifest {  attributes 'Main-Class': 'playground.PlaygroundApplication'  }
 }
 
 // run the shadowJar task at the end of build
