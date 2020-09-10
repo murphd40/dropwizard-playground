@@ -1,4 +1,4 @@
-package playground.api;
+package playground.api.response;
 
 import lombok.Value;
 

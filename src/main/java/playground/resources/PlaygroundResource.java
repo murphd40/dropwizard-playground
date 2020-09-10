@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import playground.api.Saying;
+import playground.api.response.Saying;
 
 @Path("/hello-world")
 @Produces(MediaType.APPLICATION_JSON)
