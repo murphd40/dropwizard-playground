@@ -1,5 +1,6 @@
 package playground.resources;
 
+import com.google.inject.Inject;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,6 +20,7 @@ public class ChatResource {
 
   private final DbService dbService;
 
+  @Inject
   public ChatResource(DbService dbService) {
     this.dbService = dbService;
   }

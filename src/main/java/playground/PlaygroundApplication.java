@@ -1,15 +1,15 @@
 package playground;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import playground.dao.client.DbClient;
-import playground.dao.client.mock.MockDbClient;
+import playground.configuration.binding.ChatResourceModule;
 import playground.health.TemplateHealthCheck;
 import playground.resources.ChatResource;
+import playground.configuration.binding.DbServiceModule;
 import playground.resources.PlaygroundResource;
-import playground.service.ConversionService;
-import playground.service.DbService;
 
 public class PlaygroundApplication extends Application<PlaygroundConfiguration> {
 
@@ -32,12 +32,11 @@ public class PlaygroundApplication extends Application<PlaygroundConfiguration> 
     final PlaygroundResource playgroundResource =
         new PlaygroundResource(configuration.getTemplate(), configuration.getDefaultName());
 
-    DbClient dbClient = new MockDbClient();
-    ConversionService conversionService = new ConversionService();
-    DbService dbService = new DbService(dbClient, conversionService);
-    final ChatResource chatResource = new ChatResource(dbService);
-
     final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
+
+    Injector injector = Guice.createInjector(new ChatResourceModule(), new DbServiceModule());
+
+    ChatResource chatResource = injector.getInstance(ChatResource.class);
 
     environment.jersey().register(playgroundResource);
     environment.jersey().register(chatResource);
