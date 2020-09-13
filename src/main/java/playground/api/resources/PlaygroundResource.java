@@ -1,4 +1,4 @@
-package playground.resources;
+package playground.api.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import java.util.Optional;

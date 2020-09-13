@@ -1,7 +1,10 @@
-package playground.resources;
+package playground.api.resources;
 
 import com.google.inject.Inject;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -27,25 +30,25 @@ public class ChatResource {
 
   @POST
   @Path("/message/create")
-  public MessageResponse createMessage(CreateMessageRequest createMessageRequest) {
+  public MessageResponse createMessage(@NotNull @Valid CreateMessageRequest createMessageRequest) {
     return dbService.createMessage(createMessageRequest);
   }
 
   @POST
   @Path("/channel/create")
-  public ChannelResponse createChannel(CreateChannelRequest createChannelRequest) {
+  public ChannelResponse createChannel(@NotNull @Valid CreateChannelRequest createChannelRequest) {
     return dbService.createChannel(createChannelRequest);
   }
 
   @GET
   @Path("/channel/{channelId}/messages")
-  public List<MessageResponse> getMessages(@PathParam("channelId") String channelId) {
+  public List<MessageResponse> getMessages(@PathParam("channelId") @NotBlank String channelId) {
     return dbService.getMessages(channelId);
   }
 
   @GET
   @Path("/message/{messageId}")
-  public MessageResponse getMessage(@PathParam("messageId") String messageId) {
+  public MessageResponse getMessage(@PathParam("messageId") @NotBlank String messageId) {
     return dbService.getMessage(messageId);
   }
 
@@ -57,7 +60,7 @@ public class ChatResource {
 
   @GET
   @Path("/channel/{channelId}")
-  public ChannelResponse getChannel(@PathParam("channelId") String channelId) {
+  public ChannelResponse getChannel(@PathParam("channelId") @NotBlank String channelId) {
     return dbService.getChannel(channelId);
   }
 }

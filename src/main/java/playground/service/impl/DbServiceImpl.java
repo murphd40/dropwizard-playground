@@ -12,6 +12,7 @@ import playground.api.response.MessageResponse;
 import playground.dao.client.DbClient;
 import playground.dao.model.Channel;
 import playground.dao.model.Message;
+import playground.exception.ResourceNotFoundException;
 import playground.service.ConversionService;
 import playground.service.DbService;
 
@@ -31,7 +32,7 @@ public class DbServiceImpl implements DbService {
 
     dbClient
         .getChannel(createMessageRequest.getChannelId())
-        .orElseThrow(() -> new RuntimeException("Channel not found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Channel not found"));
 
     Date currentDate = new Date();
     Message message =
@@ -53,7 +54,7 @@ public class DbServiceImpl implements DbService {
     return dbClient
         .getMessage(messageId)
         .map(message -> conversionService.convert(message, MessageResponse.class))
-        .orElseThrow(() -> new RuntimeException("Message not found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Message not found"));
   }
 
   @Override
@@ -84,7 +85,7 @@ public class DbServiceImpl implements DbService {
     return dbClient
         .getChannel(channelId)
         .map(channel -> conversionService.convert(channel, ChannelResponse.class))
-        .orElseThrow(() -> new RuntimeException("Channel not found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Channel not found"));
   }
 
   @Override
@@ -93,5 +94,4 @@ public class DbServiceImpl implements DbService {
         .map(channel -> conversionService.convert(channel, ChannelResponse.class))
         .collect(Collectors.toList());
   }
-
 }

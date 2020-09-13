@@ -19,17 +19,17 @@ class ConversionServiceImplTest {
 
   @Test
   void genericConversionTest() {
-    Message message = Message.builder()
-        .id("message-id")
-        .channelId("channel-id")
-        .content("message-content")
-        .created(new Date())
-        .updated(new Date(10000L))
-        .build();
+    Message message =
+        Message.builder()
+            .id("message-id")
+            .channelId("channel-id")
+            .content("message-content")
+            .created(new Date())
+            .updated(new Date(10000L))
+            .build();
 
     MessageResponse result = conversionService.convert(message, MessageResponse.class);
 
     Assertions.assertThat(result).isEqualToComparingFieldByField(message);
   }
-
 }

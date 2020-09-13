@@ -19,5 +19,4 @@ public interface DbService {
   ChannelResponse getChannel(String channelId);
 
   List<ChannelResponse> getChannels();
-
 }

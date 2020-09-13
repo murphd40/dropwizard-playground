@@ -5,11 +5,12 @@ import com.google.inject.Injector;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import playground.api.exceptionmapper.ResourceNotFoundExceptionMapper;
+import playground.api.resources.ChatResource;
+import playground.api.resources.PlaygroundResource;
 import playground.configuration.binding.ChatResourceModule;
-import playground.health.TemplateHealthCheck;
-import playground.resources.ChatResource;
 import playground.configuration.binding.DbServiceModule;
-import playground.resources.PlaygroundResource;
+import playground.health.TemplateHealthCheck;
 
 public class PlaygroundApplication extends Application<PlaygroundConfiguration> {
 
@@ -40,6 +41,7 @@ public class PlaygroundApplication extends Application<PlaygroundConfiguration> 
 
     environment.jersey().register(playgroundResource);
     environment.jersey().register(chatResource);
+    environment.jersey().register(new ResourceNotFoundExceptionMapper());
     environment.healthChecks().register("template", healthCheck);
   }
 }

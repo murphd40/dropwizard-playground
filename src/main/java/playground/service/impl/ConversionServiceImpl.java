@@ -11,5 +11,4 @@ public class ConversionServiceImpl implements ConversionService {
   public <T> T convert(Object source, Class<T> target) {
     return objectMapper.convertValue(source, target);
   }
-
 }

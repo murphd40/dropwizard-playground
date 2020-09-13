@@ -1,10 +1,11 @@
 package playground.api.request;
 
+import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class CreateMessageRequest {
 
-  private String channelId;
-  private String content;
+  @NotBlank private String channelId;
+  @NotBlank private String content;
 }
